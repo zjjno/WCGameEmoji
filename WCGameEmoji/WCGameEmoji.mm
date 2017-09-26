@@ -46,16 +46,6 @@ CHMethod(2, BOOL, MicroMessengerAppDelegate, application, id, arg1, didFinishLau
     
     BOOL res = CHSuper(2, MicroMessengerAppDelegate, application, arg1, didFinishLaunchingWithOptions, arg2);
 
-    [AllButtonsView sharedInstance];
-    
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    float x = LTSWidth - 15 - 45;
-    XXSendButton *button1 = [XXSendButton sharedInstance];
-    button1.frame = CGRectMake(x, LTSHeight/2, 45, 45);
-    [window addSubview:button1];
-    [window bringSubviewToFront:button1];
-    [XXSendButton sharedInstance].hidden = YES;
-
     return res;
 }
 

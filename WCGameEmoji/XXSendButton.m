@@ -55,6 +55,12 @@
         
         self.layer.cornerRadius = self.frame.size.width/2;
         self.layer.masksToBounds = YES;
+        
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        float x = LTSWidth - 15 - 45;
+        self.frame = CGRectMake(x, LTSHeight/2, 45, 45);
+        [window addSubview:self];
+        [window bringSubviewToFront:self];
     }
     
     return self;
