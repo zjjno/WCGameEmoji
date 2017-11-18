@@ -11,6 +11,9 @@
 @interface AllButtonsView ()
 @property (nonatomic, strong) NSMutableArray *buttonsArray;
 @property (nonatomic, assign) int m_uiGameContent;
+
+@property (nonatomic, copy) NSArray *emojiMD5Array;
+
 @end
 @implementation AllButtonsView
 
@@ -34,7 +37,7 @@
         
         self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
         self.userInteractionEnabled = YES;
-
+        
         float maxy;
         float ox = (LTSWidth - (ButtonsSpace * (LineCount-1)) - ButtonsWidth * LineCount)/2;
         float oy = LTSHeight/2 - ButtonsWidth - ButtonsSpace/2;
@@ -69,12 +72,12 @@
             button.tag = 10+i;
             button.layer.cornerRadius = button.frame.size.width/2;
             button.layer.masksToBounds = YES;
-
+            
             [_buttonsArray addObject:button];
             
             maxy = CGRectGetMaxY(button.frame);
         }
-
+        
         UIButton *sureButton = [UIButton buttonWithType:UIButtonTypeCustom];
         sureButton.frame = CGRectMake((LTSWidth-200)/2, maxy + 15, 200, 35);
         [sureButton addTarget:self action:@selector(sure) forControlEvents:UIControlEventTouchUpInside];
@@ -84,12 +87,24 @@
         [self addSubview:sureButton];
         
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
-
+        
         self.frame = window.bounds;
         self.hidden = YES;
         
         [window addSubview:self];
         [window bringSubviewToFront:self];
+        
+        self.emojiMD5Array = @[
+                               @"514914788fc461e7205bf0b6ba496c49",//剪刀
+                               @"f790e342a02e0f99d34b316547f9aeab",//石头
+                               @"091577322c40c05aa3dd701da29d6423",//布
+                               @"da1c289d4e363f3ce1ff36538903b92f",//1
+                               @"9e3f303561566dc9342a3ea41e6552a6",//2
+                               @"dbcc51db2765c1d0106290bae6326fc4",//3
+                               @"9a21c57defc4974ab5b7c842e3232671",//4
+                               @"3a8e16d650f7e66ba5516b2780512830",//5
+                               @"5ba8e9694b853df10b9f2a77b312cc09",//6
+                               ];
     }
     
     return self;
@@ -126,13 +141,14 @@
         
         if (_m_uiGameContent<=3) {
             //m_uiGameType:1 _m_uiGameContent 1-3:剪刀 石头 布
-            wrap.m_nsEmoticonMD5 = @"F790E342A02E0F99D34B316547F9AEAB";
             wrap.m_uiGameType = 1;
         }else {
             //m_uiGameType:2 _m_uiGameContent 4-9:1-6
-            wrap.m_nsEmoticonMD5 = @"9E3F303561566DC9342A3EA41E6552A6";
             wrap.m_uiGameType = 2;
         }
+        
+        wrap.m_nsEmoticonMD5 = _emojiMD5Array[_m_uiGameContent-1];
+        
         wrap.m_uiGameContent = _m_uiGameContent;
         wrap.m_uiEmoticonType = 1;
         
@@ -144,3 +160,5 @@
     [self endEditing:YES];
 }
 @end
+
+
